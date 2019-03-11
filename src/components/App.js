@@ -1,13 +1,26 @@
 import React, { Component } from 'react';
+import '../css/App.css';
+
 import AddAppointments from './AddAppointments';
 import SearchAppointments from './SearchAppointments';
 import ListAppointments from './ListAppointments';
-import '../css/App.css';
 
 class App extends Component {
 
-  state = { myName: 'Michael' }
+  state = { myAppointments: [] }
 
+  componentDidMount() {
+    fetch('./data.json')
+      .then(response => response.json())
+      .then(result => {
+        const apts = result.map(item => {
+          return item;
+        });
+        this.setState({
+          myAppointments: apts
+        });
+      });
+  }
 
   render() {
     return (
@@ -16,10 +29,9 @@ class App extends Component {
        <div className="row">
          <div className="col-md-12 bg-white">
            <div className="container">
-            {this.state.myName}
              <AddAppointments />
              <SearchAppointments />
-             <ListAppointments />
+             <ListAppointments appointments={this.state.myAppointments}/>
            </div>
          </div>
        </div>
