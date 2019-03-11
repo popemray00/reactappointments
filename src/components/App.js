@@ -7,13 +7,15 @@ import ListAppointments from './ListAppointments';
 
 class App extends Component {
 
-  state = { myAppointments: [] }
+  state = { myAppointments: [], lastIndex: 0 }
 
   componentDidMount() {
     fetch('./data.json')
       .then(response => response.json())
       .then(result => {
         const apts = result.map(item => {
+          item.aptId = this.state.lastIndex;
+          this.setState({ lastIndex: this.state.lastIndex + 1})
           return item;
         });
         this.setState({
