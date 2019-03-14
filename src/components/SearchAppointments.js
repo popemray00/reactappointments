@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 
 class SearchAppointments extends Component {
+
   render() {
   return (
     <div className="search-appointments row justify-content-center my-4">
